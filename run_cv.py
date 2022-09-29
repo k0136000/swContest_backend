@@ -57,16 +57,16 @@ quarter_lower, quarter_upper, quarter_thresh = 50, 150, 0.70
 half_lower, half_upper, half_thresh = 50, 150, 0.70
 whole_lower, whole_upper, whole_thresh = 50, 150, 0.70
 
-# def put_text(image, text, loc):
-def put_text(image, text, loc_x,loc_y):
+def put_text(image, text, loc):
+# def put_text(image, text, loc_x,loc_y):
     """
     이미지와 텍스트, 입력할 좌표를 입력받아 흰색 픽셀로 텍스트를 적어주는 함수
     """
-    image = Image.fromarray(image)
-    draw = ImageDraw.Draw(image)
-    draw.text(loc_x,loc_y,str(text),ImageFont.truetype("font/gulim.ttf", 48))
-    #font = cv2.FONT_HERSHEY_SIMPLEX
-    #cv2.putText(image, str(text), loc, font, 0.6, (255, 0, 0), 2)
+    # image = Image.fromarray(image)
+    # draw = ImageDraw.Draw(image)
+    # draw.text(loc_x,loc_y,str(text),ImageFont.truetype("font/gulim.ttf", 48))
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    cv2.putText(image, str(text), loc, font, 0.6, (255, 0, 0), 2)
     
     return image
 def locate_images(img, templates, start, stop, threshold):
@@ -239,7 +239,7 @@ def run(path):
         # 노트 , 객체의 이름 (ex-> 2분음표 : 2, 4,8음표 -> 4,8
         for note in note_group:
             print(str(note.note) + " | "+ str(note.sym) + " | " + str(note.pitch))
-            #img=put_text(img, note.note_kor, (note.rec.x,note.rec.y+80))
-            img=put_text(img, note.note_kor, note.rec.x,note.rec.y+80)
+            img=put_text(img, note.note, (note.rec.x,note.rec.y+80))
+            #img=put_text(img, note.note_kor, note.rec.x,note.rec.y+80)
                     
     return img
