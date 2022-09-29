@@ -1,0 +1,5 @@
+urllib3==1.26.7
+uvicorn==0.16.0
+opencv-python==4.6.0.66
+numpy==1.23.3
+python-multipart==0.0.5
