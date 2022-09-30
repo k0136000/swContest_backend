@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "swcontest-backend"
+version = "0.1.0"
+description = ""
+authors = ["kim min gyu"]
+readme = "README.md"
+packages = [{include = "swcontest_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.85.0"
+uvicorn = "^0.18.3"
+image = "^1.5.33"
+urllib3 = "^1.26.12"
+python-multipart = "^0.0.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
