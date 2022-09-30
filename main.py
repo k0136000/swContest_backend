@@ -24,6 +24,11 @@ import sys
 
 app = FastAPI ()
 
+
+@app.get("/test")
+def test():
+    print("테스트 성공")
+    return "success!"
 #이미지 불러 오기
 @app.get("/convert/readimg{img_name}")
 def get_note(path:str):
