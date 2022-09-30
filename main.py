@@ -30,7 +30,7 @@ def test():
     print("테스트 성공")
     return "success!"
 #이미지 불러 오기
-@app.get("/convert/readimg{img_name}")
+@app.get("/convert/readimg")
 def get_note(path:str):
     img = FileResponse(path)
     # os.remove(path)
@@ -51,7 +51,7 @@ async def conver_note(file: UploadFile):
 
     img_path = f"./photo/{filename}"
     img=run_cv.run(img_path)
-    convert_img_path = f"photo/{str(uuid.uuid4())}.jpg"
+    convert_img_path = f"/home/ubuntu/photo/{str(uuid.uuid4())}.jpg"
     cv2.imwrite(convert_img_path,img)
 
     return {"filename":filename, "path":convert_img_path}
