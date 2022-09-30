@@ -36,7 +36,7 @@ def get_note(path:str):
     # os.remove(path)
     return img
 
-@app.post("/convert/upload/{file}")
+@app.post("/convert/upload/")
 
 async def conver_note(file: UploadFile):
     UPLOAD_DIR  = "./photo"
