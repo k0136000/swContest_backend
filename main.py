@@ -19,8 +19,8 @@ import run_cv
 import uuid 
 import os
 import sys
-
-
+import io
+from starlette.responses import StreamingResponse
 
 app = FastAPI ()
 
@@ -51,9 +51,11 @@ async def conver_note(file: UploadFile):
 
     img_path = f"./photo/{filename}"
     img=run_cv.run(img_path)
-    convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}"
-    # cv2.imwrite(convert_img_path,img)
-    cv2.imwrite(img_path,img)
 
+    res,im_png = cv2.imencode(".png",img)
+    # convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}"
+    # cv2.imwrite(convert_img_path,img)
+    # cv2.imwrite(img_path,img)
+    return StreamingResponse(io.BytesIO(im_png.tobytes()),media_type="image/png")
     # return {"filename":filename, "path":convert_img_path}
-    return {"filename":filename, "path":img_path}
+    # return {"filename":filename, "path":img_path}
