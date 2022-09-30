@@ -51,7 +51,9 @@ async def conver_note(file: UploadFile):
 
     img_path = f"./photo/{filename}"
     img=run_cv.run(img_path)
-    convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}.jpg"
-    cv2.imwrite(convert_img_path,img)
+    convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}"
+    # cv2.imwrite(convert_img_path,img)
+    cv2.imwrite(img_path,img)
 
-    return {"filename":filename, "path":convert_img_path}
+    # return {"filename":filename, "path":convert_img_path}
+    return {"filename":filename, "path":img_path}
