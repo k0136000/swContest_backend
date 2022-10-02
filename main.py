@@ -57,7 +57,7 @@ async def conver_note(file: UploadFile):
     content = await file.read()
     
     #uuid로 유니크한 파일명으로 변경
-    filename = f"{str(uuid.uuid4())}.jpg"
+    filename = f"{str(uuid.uuid4())}.png"
 
     with open(os.path.join(UPLOAD_DIR, filename), "wb") as fp:
         #서버 로컬 스토리지에 이미지 저장.
@@ -74,4 +74,5 @@ async def conver_note(file: UploadFile):
     cv2.imwrite(img_path,img)
 
     # return {"filename":filename, "path":convert_img_path}
+    return {"filename":filename, "path":img_path}
     return {"filename":filename, "path":img_path}
