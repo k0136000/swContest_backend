@@ -27,7 +27,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI ()
 
 origins = [
-    "http://52.79.222.1/"
+    "*"
 ]
 
 app.add_middleware(
