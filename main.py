@@ -57,7 +57,7 @@ async def conver_note(file: UploadFile):
     content = await file.read()
     
     #uuid로 유니크한 파일명으로 변경
-    filename = f"{str(uuid.uuid4())}.png"
+    filename = f"{str(uuid.uuid4())}.jpg"
 
     with open(os.path.join(UPLOAD_DIR, filename), "wb") as fp:
         #서버 로컬 스토리지에 이미지 저장.
@@ -65,12 +65,15 @@ async def conver_note(file: UploadFile):
 
     img_path = f"./{filename}"
     img=run_cv.run(img_path)
+    cv2.imwrite(img_path,img)
+    return FileResponse(img_path,media_type='image/jpg',filename=filename)
 
-    res,im_png = cv2.imencode(".png",img)
-    return StreamingResponse(io.BytesIO(im_png.tobytes()),media_type="image/png")
+
+    # res,im_png = cv2.imencode(".png",img)
+    # return StreamingResponse(io.BytesIO(im_png.tobytes()),media_type="image/png")
     # convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}"
     # cv2.imwrite(convert_img_path,img)
-    # cv2.imwrite(img_path,img)
+    
 
     # return {"filename":filename, "path":convert_img_path}
     # return {"filename":filename, "path":img_path}
