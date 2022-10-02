@@ -52,7 +52,7 @@ def get_note(path:str):
 @app.post("/convert/upload/")
 
 async def conver_note(file: UploadFile):
-    UPLOAD_DIR  = "./photo"
+    UPLOAD_DIR  = ""
 
     content = await file.read()
     
@@ -63,12 +63,15 @@ async def conver_note(file: UploadFile):
         #서버 로컬 스토리지에 이미지 저장.
         fp.write(content)
 
-    img_path = f"./photo/{filename}"
+    img_path = f"./{filename}"
     img=run_cv.run(img_path)
-    res,im_png = cv2.imencode(".png",img)
+
+
+    # res,im_png = cv2.imencode(".png",img)
+    # return StreamingResponse(io.BytesIO(im_png.tobytes()),media_type="image/png")
     # convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}"
     # cv2.imwrite(convert_img_path,img)
-    # cv2.imwrite(img_path,img)
-    return StreamingResponse(io.BytesIO(im_png.tobytes()),media_type="image/png")
+    cv2.imwrite(img_path,img)
+
     # return {"filename":filename, "path":convert_img_path}
-    # return {"filename":filename, "path":img_path}
+    return {"filename":filename, "path":img_path}
