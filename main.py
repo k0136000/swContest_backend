@@ -21,9 +21,22 @@ import os
 import sys
 import io
 from starlette.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI ()
 
+origins = [
+    "http://52.79.222.1/"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/test")
 def test():
@@ -42,6 +55,7 @@ async def conver_note(file: UploadFile):
     UPLOAD_DIR  = "./photo"
 
     content = await file.read()
+    
     #uuid로 유니크한 파일명으로 변경
     filename = f"{str(uuid.uuid4())}.jpg"
 
@@ -51,7 +65,6 @@ async def conver_note(file: UploadFile):
 
     img_path = f"./photo/{filename}"
     img=run_cv.run(img_path)
-
     res,im_png = cv2.imencode(".png",img)
     # convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}"
     # cv2.imwrite(convert_img_path,img)
