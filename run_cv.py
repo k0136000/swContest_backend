@@ -5,7 +5,6 @@ import subprocess
 import cv2
 import numpy as np
 
-
 from rectangle import Rectangle
 from best_fit import fit
 from note import Note
@@ -21,7 +20,8 @@ staff_files = [
     "cv_note/resources/template/staff2.png", 
     "cv_note/resources/template/staff.png"]
 quarter_files = [
-    "cv_note/resources/template/quarter.png", 
+    "cv_note/resources/template/quarter.png",
+    "cv_note/resources/template/quarter2.png", 
     "cv_note/resources/template/solid-note.png"]
 sharp_files = [
     "cv_note/resources/template/sharp.png"]
@@ -62,9 +62,6 @@ def put_text(image, text, loc):
     """
     이미지와 텍스트, 입력할 좌표를 입력받아 흰색 픽셀로 텍스트를 적어주는 함수
     """
-    # image = Image.fromarray(image)
-    # draw = ImageDraw.Draw(image)
-    # draw.text(loc_x,loc_y,str(text),ImageFont.truetype("font/gulim.ttf", 48))
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(image, str(text), loc, font, 0.6, (255, 0, 0), 2)
     
@@ -221,9 +218,12 @@ def run(path):
         note_color = (randint(0, 255), randint(0, 255), randint(0, 255))
         note_group = []
         i = 0; j = 0;
-        while(i < len(staff_notes)):
+        print('start marking')
+        print(len(staff_notes),len(staffs))
+        while(i < len(staff_notes) and i < len(staffs)):
             if (staff_notes[i].rec.x > staffs[j].x and j < len(staffs)):
                 r = staffs[j]
+                print(j)
                 j += 1;
                 if len(note_group) > 0:
                     note_groups.append(note_group)

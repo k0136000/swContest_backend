@@ -44,16 +44,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/test")
-def test():
-    print("테스트 성공")
-    return "success!"
-#이미지 불러 오기
-@app.get("/convert/readimg")
-def get_note(index):
-    global imgFile
-    return imgFile[int(index)]
-
 @app.post("/convert/upload/")
 
 async def conver_note(file: UploadFile):
@@ -69,14 +59,8 @@ async def conver_note(file: UploadFile):
 
     img_path = f"./{filename}"
     img=run_cv.run(img_path)
-    cv2.imwrite(img_path,img)
+    
     res,im_png = cv2.imencode(".png",img)
   
     return StreamingResponse(io.BytesIO(im_png.tobytes()),media_type="image/png")
-    # convert_img_path = f"/home/ubuntu/swContest_backend/photo/{filename}"
-    # cv2.imwrite(convert_img_path,img)
-    
 
-    # return {"filename":filename, "path":convert_img_path}
-    # return {"filename":filename, "path":img_path}
-    

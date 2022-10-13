@@ -43,9 +43,10 @@ class Note(object):
         height = (middle - staff_rec.y) / staff_rec.h
         print(height,staff_rec.y,staff_rec.h)
 
+        #해당 객체의 높이에 따른 인덱싱
         note_def = note_defs[int(height/note_step + 0.5)]
         self.note = note_def[0]
-        print(sym,)
+        print(sym)
         self.pitch = note_def[1]
         self.note_kor = note_def[2]
         if any(n for n in sharp_notes if n.note[0] == self.note[0]):
@@ -54,5 +55,5 @@ class Note(object):
         if any(n for n in flat_notes if n.note[0] == self.note[0]):
             self.note += "b"
             self.pitch -= 1
-
+        
 
